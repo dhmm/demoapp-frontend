@@ -1,0 +1,426 @@
+# ============================================================
+# DemoShop Frontend — Route Definitions
+# Symfony 7 YAML route configuration
+# All controllers are in src/Controller/
+# ============================================================
+
+# -------------------------------------------------------
+# Home / Landing
+# -------------------------------------------------------
+home:
+    path:       /
+    controller: App\Controller\HomeController::index
+    methods:    [GET]
+
+home_about:
+    path:       /about
+    controller: App\Controller\HomeController::about
+    methods:    [GET]
+
+home_contact:
+    path:       /contact
+    controller: App\Controller\HomeController::contact
+    methods:    [GET, POST]
+
+home_contact_success:
+    path:       /contact/success
+    controller: App\Controller\HomeController::contactSuccess
+    methods:    [GET]
+
+home_search:
+    path:       /search
+    controller: App\Controller\HomeController::search
+    methods:    [GET]
+
+home_sitemap:
+    path:       /sitemap.xml
+    controller: App\Controller\HomeController::sitemap
+    methods:    [GET]
+
+# -------------------------------------------------------
+# Authentication
+# -------------------------------------------------------
+auth_register:
+    path:       /register
+    controller: App\Controller\AuthController::register
+    methods:    [GET, POST]
+
+auth_login:
+    path:       /login
+    controller: App\Controller\AuthController::login
+    methods:    [GET, POST]
+
+auth_logout:
+    path:       /logout
+    controller: App\Controller\AuthController::logout
+    methods:    [POST]
+
+auth_forgot_password:
+    path:       /forgot-password
+    controller: App\Controller\AuthController::forgotPassword
+    methods:    [GET, POST]
+
+auth_reset_password:
+    path:       /reset-password/{token}
+    controller: App\Controller\AuthController::resetPassword
+    methods:    [GET, POST]
+    requirements:
+        token: '[a-zA-Z0-9_\-]+'
+
+auth_verify_email:
+    path:       /verify-email/{token}
+    controller: App\Controller\AuthController::verifyEmail
+    methods:    [GET]
+    requirements:
+        token: '[a-zA-Z0-9_\-]+'
+
+auth_resend_verification:
+    path:       /resend-verification
+    controller: App\Controller\AuthController::resendVerification
+    methods:    [POST]
+
+auth_two_factor:
+    path:       /two-factor
+    controller: App\Controller\AuthController::twoFactor
+    methods:    [GET, POST]
+
+# -------------------------------------------------------
+# Product Catalogue
+# -------------------------------------------------------
+product_index:
+    path:       /products
+    controller: App\Controller\ProductController::index
+    methods:    [GET]
+
+product_category:
+    path:       /products/category/{slug}
+    controller: App\Controller\ProductController::byCategory
+    methods:    [GET]
+    requirements:
+        slug: '[a-z0-9\-]+'
+
+product_search:
+    path:       /products/search
+    controller: App\Controller\ProductController::search
+    methods:    [GET]
+
+product_featured:
+    path:       /products/featured
+    controller: App\Controller\ProductController::featured
+    methods:    [GET]
+
+product_new_arrivals:
+    path:       /products/new-arrivals
+    controller: App\Controller\ProductController::newArrivals
+    methods:    [GET]
+
+product_on_sale:
+    path:       /products/on-sale
+    controller: App\Controller\ProductController::onSale
+    methods:    [GET]
+
+product_bestsellers:
+    path:       /products/bestsellers
+    controller: App\Controller\ProductController::bestsellers
+    methods:    [GET]
+
+product_show:
+    path:       /products/{slug}
+    controller: App\Controller\ProductController::show
+    methods:    [GET]
+    requirements:
+        slug: '[a-z0-9\-]+'
+
+product_quickview:
+    path:       /products/{id}/quickview
+    controller: App\Controller\ProductController::quickview
+    methods:    [GET]
+    requirements:
+        id: '\d+'
+
+product_compare:
+    path:       /products/compare
+    controller: App\Controller\ProductController::compare
+    methods:    [GET, POST]
+
+product_compare_add:
+    path:       /products/{id}/compare/add
+    controller: App\Controller\ProductController::addToCompare
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+product_compare_remove:
+    path:       /products/{id}/compare/remove
+    controller: App\Controller\ProductController::removeFromCompare
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+# -------------------------------------------------------
+# Shopping Cart
+# -------------------------------------------------------
+cart_index:
+    path:       /cart
+    controller: App\Controller\CartController::index
+    methods:    [GET]
+
+cart_add:
+    path:       /cart/add/{productId}
+    controller: App\Controller\CartController::add
+    methods:    [POST]
+    requirements:
+        productId: '\d+'
+
+cart_update:
+    path:       /cart/update/{itemId}
+    controller: App\Controller\CartController::update
+    methods:    [POST]
+    requirements:
+        itemId: '\d+'
+
+cart_remove:
+    path:       /cart/remove/{itemId}
+    controller: App\Controller\CartController::remove
+    methods:    [POST]
+    requirements:
+        itemId: '\d+'
+
+cart_clear:
+    path:       /cart/clear
+    controller: App\Controller\CartController::clear
+    methods:    [POST]
+
+cart_apply_coupon:
+    path:       /cart/coupon/apply
+    controller: App\Controller\CartController::applyCoupon
+    methods:    [POST]
+
+cart_remove_coupon:
+    path:       /cart/coupon/remove
+    controller: App\Controller\CartController::removeCoupon
+    methods:    [POST]
+
+cart_summary_partial:
+    path:       /cart/summary
+    controller: App\Controller\CartController::summary
+    methods:    [GET]
+
+cart_mini:
+    path:       /cart/mini
+    controller: App\Controller\CartController::mini
+    methods:    [GET]
+
+# -------------------------------------------------------
+# Checkout
+# -------------------------------------------------------
+checkout_index:
+    path:       /checkout
+    controller: App\Controller\OrderController::checkout
+    methods:    [GET]
+
+checkout_address:
+    path:       /checkout/address
+    controller: App\Controller\OrderController::selectAddress
+    methods:    [GET, POST]
+
+checkout_shipping:
+    path:       /checkout/shipping
+    controller: App\Controller\OrderController::selectShipping
+    methods:    [GET, POST]
+
+checkout_payment:
+    path:       /checkout/payment
+    controller: App\Controller\OrderController::payment
+    methods:    [GET, POST]
+
+checkout_review:
+    path:       /checkout/review
+    controller: App\Controller\OrderController::review
+    methods:    [GET]
+
+checkout_place_order:
+    path:       /checkout/place-order
+    controller: App\Controller\OrderController::placeOrder
+    methods:    [POST]
+
+checkout_confirmation:
+    path:       /checkout/confirmation/{orderNumber}
+    controller: App\Controller\OrderController::confirmation
+    methods:    [GET]
+    requirements:
+        orderNumber: 'ORD-[A-Z0-9\-]+'
+
+checkout_payment_success:
+    path:       /checkout/payment/success
+    controller: App\Controller\OrderController::paymentSuccess
+    methods:    [GET]
+
+checkout_payment_cancel:
+    path:       /checkout/payment/cancel
+    controller: App\Controller\OrderController::paymentCancel
+    methods:    [GET]
+
+# -------------------------------------------------------
+# Orders (Customer Account)
+# -------------------------------------------------------
+order_index:
+    path:       /account/orders
+    controller: App\Controller\OrderController::index
+    methods:    [GET]
+
+order_show:
+    path:       /account/orders/{id}
+    controller: App\Controller\OrderController::show
+    methods:    [GET]
+    requirements:
+        id: '\d+'
+
+order_cancel:
+    path:       /account/orders/{id}/cancel
+    controller: App\Controller\OrderController::cancel
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+order_return:
+    path:       /account/orders/{id}/return
+    controller: App\Controller\OrderController::requestReturn
+    methods:    [GET, POST]
+    requirements:
+        id: '\d+'
+
+order_invoice:
+    path:       /account/orders/{id}/invoice
+    controller: App\Controller\OrderController::downloadInvoice
+    methods:    [GET]
+    requirements:
+        id: '\d+'
+
+order_tracking:
+    path:       /account/orders/{id}/tracking
+    controller: App\Controller\OrderController::tracking
+    methods:    [GET]
+    requirements:
+        id: '\d+'
+
+# -------------------------------------------------------
+# Customer Account
+# -------------------------------------------------------
+account_dashboard:
+    path:       /account
+    controller: App\Controller\AccountController::dashboard
+    methods:    [GET]
+
+account_profile:
+    path:       /account/profile
+    controller: App\Controller\AccountController::profile
+    methods:    [GET, POST]
+
+account_avatar:
+    path:       /account/avatar
+    controller: App\Controller\AccountController::updateAvatar
+    methods:    [POST]
+
+account_change_password:
+    path:       /account/change-password
+    controller: App\Controller\AccountController::changePassword
+    methods:    [GET, POST]
+
+account_delete:
+    path:       /account/delete
+    controller: App\Controller\AccountController::deleteAccount
+    methods:    [GET, POST]
+
+account_notifications:
+    path:       /account/notifications
+    controller: App\Controller\AccountController::notifications
+    methods:    [GET]
+
+account_notification_read:
+    path:       /account/notifications/{id}/read
+    controller: App\Controller\AccountController::markNotificationRead
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+account_notification_read_all:
+    path:       /account/notifications/read-all
+    controller: App\Controller\AccountController::markAllNotificationsRead
+    methods:    [POST]
+
+account_addresses:
+    path:       /account/addresses
+    controller: App\Controller\AccountController::addresses
+    methods:    [GET]
+
+account_address_new:
+    path:       /account/addresses/new
+    controller: App\Controller\AccountController::newAddress
+    methods:    [GET, POST]
+
+account_address_edit:
+    path:       /account/addresses/{id}/edit
+    controller: App\Controller\AccountController::editAddress
+    methods:    [GET, POST]
+    requirements:
+        id: '\d+'
+
+account_address_delete:
+    path:       /account/addresses/{id}/delete
+    controller: App\Controller\AccountController::deleteAddress
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+account_address_default:
+    path:       /account/addresses/{id}/set-default
+    controller: App\Controller\AccountController::setDefaultAddress
+    methods:    [POST]
+    requirements:
+        id: '\d+'
+
+account_wishlist:
+    path:       /account/wishlist
+    controller: App\Controller\AccountController::wishlist
+    methods:    [GET]
+
+account_wishlist_add:
+    path:       /account/wishlist/add/{productId}
+    controller: App\Controller\AccountController::addToWishlist
+    methods:    [POST]
+    requirements:
+        productId: '\d+'
+
+account_wishlist_remove:
+    path:       /account/wishlist/remove/{productId}
+    controller: App\Controller\AccountController::removeFromWishlist
+    methods:    [POST]
+    requirements:
+        productId: '\d+'
+
+account_wishlist_move_to_cart:
+    path:       /account/wishlist/move-to-cart/{productId}
+    controller: App\Controller\AccountController::moveWishlistToCart
+    methods:    [POST]
+    requirements:
+        productId: '\d+'
+
+account_reviews:
+    path:       /account/reviews
+    controller: App\Controller\AccountController::reviews
+    methods:    [GET]
+
+account_review_edit:
+    path:       /account/reviews/{id}/edit
+    controller: App\Controller\AccountController::editReview
+    methods:    [GET, POST]
+    requirements:
+        id: '\d+'
+
+account_review_delete:
+    path:       /account/reviews/{id}/delete
+    controller: App\Controller\AccountController::deleteReview
+    methods:    [POST]
+    requirements:
+        id: '\d+'
